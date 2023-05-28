@@ -25,7 +25,7 @@ async function CorotosGetData(search){
     return bookData;
 }
 
-app.get('/api//corotos/:search', async (req, res) => {
+app.get('/api/corotos/:search', async (req, res) => {
     const {search} = req.params;
     const dataManage = await CorotosGetData(search);
     res.status(200).send(dataManage);
