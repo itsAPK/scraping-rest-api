@@ -5,7 +5,7 @@ const app = express();
 async function CorotosGetData(search){
     const url = 'https://www.corotos.com.do/k/' + search + '?q%5Bsorts%5D=price_dop%20asc'; // + search
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         ignoreDefaultArgs: ['--disable-extensions'],
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
         //executablePath: '/usr/bin/chromium-browser'
