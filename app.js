@@ -8,6 +8,7 @@ async function CorotosGetData(search){
         headless: true,
         ignoreDefaultArgs: ['--disable-extensions'],
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        executablePath: '/path/to/Chrome',
     });
     const page = await browser.newPage();
     await page.goto(url);
@@ -24,8 +25,9 @@ async function CorotosGetData(search){
         }));
         return data;
     }, url)
- 
+    //const version = await page.browser().version();
     browser.close();
+    
     return bookData;
 }
 
