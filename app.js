@@ -9,7 +9,7 @@ async function CorotosGetData(search){
         ignoreDefaultArgs: ['--disable-extensions'],
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
         //executablePath: '/usr/bin/chromium-browser'
-        executablePath: '/opt/homebrew/bin/chromium'
+        //executablePath: '/opt/homebrew/bin/chromium'
     });
     const page = await browser.newPage();
     await page.goto(url);
