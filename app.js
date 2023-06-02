@@ -30,7 +30,7 @@ async function CorotosGetData(search){
     
     return bookData;
 }
-
+/*
 async function ChomerVersion(){
     const browser = await puppeteer.launch({
         headless: true,
@@ -46,7 +46,7 @@ async function ChomerVersion(){
 app.get('/', async (req, res) => {
     const dataManage = await ChomerVersion();
     res.status(200).send(dataManage);
-})
+})*/
 app.get('/api/corotos/:search', async (req, res) => {
     const {search} = req.params;
     const dataManage = await CorotosGetData(search);
