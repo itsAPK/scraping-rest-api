@@ -7,7 +7,7 @@ async function CorotosGetData(search){
     const browser = await puppeteer.launch({
         headless: true,
         ignoreDefaultArgs: ['--disable-extensions'],
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
         executablePath: '/usr/bin/chromium-browser'
     });
     const page = await browser.newPage();
