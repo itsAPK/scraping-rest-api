@@ -8,7 +8,7 @@ async function CorotosGetData(search){
         headless: true,
         ignoreDefaultArgs: ['--disable-extensions'],
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        //executablePath: '/usr/bin/chromium-browser'
+        executablePath: '/usr/bin/chromium-browser'
     });
     const page = await browser.newPage();
     await page.goto(url);
