@@ -1,4 +1,4 @@
-/*
+
 const http = require('http');
 const app = require('./app')
 const port = process.env.PORT || 3000;
@@ -6,8 +6,8 @@ const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
 server.listen(port);
-*/
 
+/*
 const port = process.env.PORT || 3000;
 const express = require('express');
 const puppeteer = require('puppeteer');
@@ -33,3 +33,5 @@ app.get('/', async (req, res) => {
 app.listen(port, () => {
   console.log('Server started on port ' + port);
 });
+
+*/
