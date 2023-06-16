@@ -17,11 +17,10 @@ async function CorotosGetData(search){
 
     if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
       options = {
-        args: [...chrome.args, '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-    
+        args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
         defaultViewport: chrome.defaultViewport,
         executablePath: await chrome.executablePath,
-        headless: false,
+        headless: true,
         ignoreHTTPSErrors: true,
       };
     }
