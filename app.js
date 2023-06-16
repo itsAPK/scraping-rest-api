@@ -2,14 +2,25 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 const app = express();
 
+import edgeChromium from 'chrome-aws-lambda'
+
+import puppeteer from 'puppeteer-core'
+
+const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+
 async function CorotosGetData(search){
     const url = 'https://www.corotos.com.do/k/' + search + '?q%5Bsorts%5D=price_dop%20asc'; // + search
+    const executablePath = await edgeChromium.executablePath || LOCAL_CHROME_EXECUTABLE
+  
     const browser = await puppeteer.launch({
-        headless: false,
-        ignoreDefaultArgs: ['--disable-extensions'],
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-        //executablePath: '/usr/bin/chromium-browser'
-    });
+      executablePath,
+      args: edgeChromium.args,
+      headless: false,
+      headless: false,
+      ignoreDefaultArgs: ['--disable-extensions'],
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+    })
+   
     const page = await browser.newPage();
     await page.goto(url);
     const bookData = await page.evaluate(() => {
