@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
 let chrome = {};
@@ -10,42 +10,59 @@ if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
 } else {
   puppeteer = require("puppeteer");
 }
-async function CorotosGetData(search){
-    const url = 'https://www.corotos.com.do/k/' + search + '?q%5Bsorts%5D=price_dop%20asc'; // + search
+async function CorotosGetData(search) {
+  const url =
+    "https://www.corotos.com.do/k/" + search + "?q%5Bsorts%5D=price_dop%20asc"; // + search
 
-    let options = {};
+  let options = {};
 
-    if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-      options = {
-        args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-        defaultViewport: chrome.defaultViewport,
-        executablePath: await chrome.executablePath,
-        headless: true,
-        ignoreHTTPSErrors: true,
-      };
-    }
+  if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+    options = {
+      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: chrome.defaultViewport,
+      executablePath: await chrome.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
+    };
+  }
 
-    let browser = await puppeteer.launch(options);
-   
-    const page = await browser.newPage();
-    await page.goto(url);
-    const bookData = await page.evaluate(() => {
+  let browser = await puppeteer.launch(options);
 
-        const convertPrice = (price) => { return parseFloat(price); }
-        const bookPods = Array.from(document.querySelectorAll('.page_content .flex.group'));
-        const data = bookPods.map((book) => ({
-            title: book.querySelector('.listing-bottom-info h3').innerText,
-            img: book.querySelector('a img').getAttribute('src'),
-            currency: book.querySelector('.listing-bottom-info .price-info span.text-overline').innerText,
-            price: convertPrice(book.querySelector('.listing-bottom-info .price-info span.text-title-3').innerText),
-            company: 'Corotos'
-        }));
-        return data;
-    }, url)
-    //const version = await page.browser().version();
-    browser.close();
-    
-    return bookData;
+  const page = await browser.newPage();
+  await page.goto(url);
+  const bookData = await page.evaluate(() => {
+    const convertPrice = (price) => {
+      return parseFloat(price);
+    };
+    const bookPods = Array.from(
+      document.querySelectorAll(".page_content .flex.group")
+    );
+    b = [];
+    const data = bookPods.map((book) => {
+      try {
+        b.push({
+          title: book.querySelector(".listing-bottom-info h3").innerText,
+          img: book.querySelector("a img").getAttribute("src"),
+          currency: book.querySelector(
+            ".listing-bottom-info .price-info span.text-overline"
+          ).innerText,
+          price: convertPrice(
+            book.querySelector(
+              ".listing-bottom-info .price-info span.text-title-3"
+            ).innerText
+          ),
+          company: "Corotos",
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    });
+    return b;
+  }, url);
+  //const version = await page.browser().version();
+  browser.close();
+
+  return bookData;
 }
 /*
 async function ChomerVersion(){
@@ -64,11 +81,11 @@ app.get('/', async (req, res) => {
     const dataManage = await ChomerVersion();
     res.status(200).send(dataManage);
 })*/
-app.get('/api/corotos/:search', async (req, res) => {
-    const {search} = req.params;
-    const dataManage = await CorotosGetData(search);
-    res.status(200).send(dataManage);
-})
+app.get("/api/corotos/:search", async (req, res) => {
+  const { search } = req.params;
+  const dataManage = await CorotosGetData(search);
+  res.status(200).send(dataManage);
+});
 
 /*
 app.use((req, res, next) => {
@@ -78,8 +95,8 @@ app.use((req, res, next) => {
 });
 */
 
-app.get('/', (req, res) => {
-    res.send('Hey this is my API running 🥳')
-  })
+app.get("/", (req, res) => {
+  res.send("Hey this is my API running 🥳");
+});
 
 module.exports = app;
