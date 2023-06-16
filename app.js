@@ -16,7 +16,7 @@ async function CorotosGetData(search){
       executablePath,
       args: edgeChromium.args,
       headless: false,
-      headless: false,
+     
       ignoreDefaultArgs: ['--disable-extensions'],
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
     })
