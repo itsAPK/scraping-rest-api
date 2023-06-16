@@ -1,5 +1,4 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
 const app = express();
 
 import edgeChromium from 'chrome-aws-lambda'
