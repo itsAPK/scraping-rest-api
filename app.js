@@ -18,8 +18,7 @@ async function CorotosGetData(search){
     if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
       options = {
         args: [...chrome.args, '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-        ignoreDefaultArgs: ['--disable-extensions'],
-      
+    
         defaultViewport: chrome.defaultViewport,
         executablePath: await chrome.executablePath,
         headless: false,
