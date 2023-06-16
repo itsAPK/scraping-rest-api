@@ -61,4 +61,8 @@ app.use((req, res, next) => {
 });
 */
 
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
+  })
+
 module.exports = app;
